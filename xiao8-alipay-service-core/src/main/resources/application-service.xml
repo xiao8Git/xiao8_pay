@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	   xmlns:dubbo="http://code.alibabatech.com/schema/dubbo"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans
+        http://www.springframework.org/schema/beans/spring-beans.xsd
+        http://code.alibabatech.com/schema/dubbo
+        http://code.alibabatech.com/schema/dubbo/dubbo.xsd
+        ">
+	<!-- 扫描注解包路径，多个包用逗号分隔，不填pacakge表示扫描当前ApplicationContext中所有的类 -->
+	<dubbo:annotation package="cn.com.xiao8.pay.alipay.service" />
+
+	<!-- 提供方应用信息，用于计算依赖关系 日志： log4j slf4j jcl jdk -->
+	<dubbo:application
+			name="xiao8-pay-alipay"
+			organization="xiao8-payy"
+			owner="xiao8"
+			version="1.0.0"
+			logger="slf4j"
+	/>
+
+
+	<!-- 注册中心配置，使用multicast广播注册中心暴露服务地址 check:false 关闭注册中心启动时检查 -->
+	<dubbo:registry
+			id="zookeeper"
+			protocol="zookeeper"
+			address="${dubbo.zookeeper.address}"
+			file="classpath:dubbo-registry-alipay-${alipay.protocol.dubbo.port}.cache"
+	/>
+
+
+	<!-- 用dubbo协议在20880端口暴露服务 -->
+	<dubbo:protocol
+			name="dubbo"
+			port="${alipay.protocol.dubbo.port}"
+	/>
+
+	<dubbo:consumer check="false" />
+	
+	<dubbo:provider  timeout="6000" version="1.0.0" group="${dubbo.group}"/>
+
+	<import resource="classpath:application-provider.xml"/>
+
+</beans>
