@@ -16,7 +16,7 @@
         <spring.v>4.2.8.RELEASE</spring.v>
         <aspectj.v>1.7.4</aspectj.v>
         <slf4j.v>1.6.1</slf4j.v>
-        <jackson.v>2.6.5</jackson.v>
+        <jackson.v>2.9.10.8</jackson.v>
         <jedis.v>2.6.3</jedis.v>
         <spring.redis.v>1.4.3.RELEASE</spring.redis.v>
         <maven.resources.plugin.v>2.6</maven.resources.plugin.v>
